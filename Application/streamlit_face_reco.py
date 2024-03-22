@@ -57,7 +57,6 @@ def create_db_connection():
         host="localhost"
     )
 
-
 def run_queries(bytes_data):
     conn = st.session_state.db_conn
     cur = conn.cursor()
@@ -70,15 +69,19 @@ def run_queries(bytes_data):
         st.write(f"Fetching vector took {vector_time:.4f} seconds.")
 
         start_time = time.time()
-
         query = """
         SELECT id, imagepath, 1 - (embeddings <=> %s) as similarity
-        FROM pictures
-        ORDER BY similarity DESC
+        FROM pictures_2
+        ORDER BY (embeddings <=> %s)
         LIMIT 5;
         """
-        cur.execute(query, (vector_result,))
+# Note the removal of single quotes around the second placeholder and passing vector_result for both placeholders.
+        cur.execute(query, (vector_result, vector_result))
+
         results = cur.fetchall()
+
+        query_filled = cur.mogrify(query, (vector_result, vector_result)).decode('utf-8')
+        print(query_filled)
 
         query_time = time.time() - start_time
         st.write(f"Querying similar images took {query_time:.4f} seconds.")
@@ -112,8 +115,7 @@ def capture_webcam():
         st.error("Failed to grab frame from webcam.")
         cap.release()
         return None
-
-    cap.release()
+  cap.release()
     # Convert the color from BGR to RGB
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -150,3 +152,4 @@ elif uploaded_file is not None:
     uploaded_image = Image.open(io.BytesIO(bytes_data))
     st.image(uploaded_image, caption='Uploaded Image', width=600)
     run_queries(bytes_data)
+
