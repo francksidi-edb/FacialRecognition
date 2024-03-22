@@ -121,6 +121,12 @@ ID: 396142, ImagePath: /Users/francksidi/Downloads/celebrity/image_group_405/101
 
 ID: 412995, ImagePath: /Users/francksidi/Downloads/celebrity/image_group_538/134483.jpg, Similarity: 0.34490723691677183
 
+
+Now Create index on the table to speed up the search: 
+
+The search is now moving from 0.8 sec to 0.008 sec. 
+
+
 ## Similarity Search using Streamlit application enabling WebCAM
 
 Change the connection info inside streamlit_face_reco.py
