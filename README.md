@@ -18,7 +18,11 @@ This file is located inside Dataset folder
 
 ## Install all dependencies for transformers and validate that CLIP model is available
 
-pip install -r requirements.txt
+Postgresql 16 installed.
+
+EDB Language pack installed.
+
+Run pip install from EDB Python directory as: /Library/edb/languagepack/v4/Python-3.11/bin/pip install -r requirements.txt
 
 Install pgvector 0.6 extension from https://github.com/pgvector/pgvector
 
