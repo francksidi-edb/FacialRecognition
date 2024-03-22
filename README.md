@@ -133,6 +133,13 @@ Change the connection info inside streamlit_face_reco.py
 
 %streamlit run streamlit_face_reco.py
 
+## Similarity Search using Streamlit application enabling WebCAM and Text Search on Images. 
+
+For instance look for images from a text description: old man, old lady, blond lady ,...
+
+%streamlit run streamlit_face_reco_text.py
+
+
 ## Lesson Learned 
 
 ### Model Pre-Loading
