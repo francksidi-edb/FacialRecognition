@@ -138,6 +138,7 @@ Run from the command line. Copy the logo.png image in the directory in which the
 
 ## Similarity Search using Streamlit application enabling WebCAM and Text Search on Images. 
 
+Change the connection info inside. Run from the command line. Copy the logo.png image in the directory in which the python program is running.
 For instance look for images from a text description: old man, old lady, blond lady ,...
 
 %streamlit run streamlit_face_reco_text.py
