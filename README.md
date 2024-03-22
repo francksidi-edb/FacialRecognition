@@ -124,7 +124,7 @@ ID: 412995, ImagePath: /Users/francksidi/Downloads/celebrity/image_group_538/134
 
 Now Create index on the table to speed up the search: 
 
-The search is now moving from 0.8 sec to 0.008 sec. 
+The search is now moving from 0.8 sec to 0.08 sec. 
 
 
 ## Similarity Search using Streamlit application enabling WebCAM
@@ -189,5 +189,9 @@ NOTICE:  Model & Processor Reused
 NOTICE:  Model & Processor Reused
 
 NOTICE:  Model & Processor Reused
+
+### Efficiency of Index
+
+Adding HSNW index improved the search query by 10X as we moved from 0.8sec to 0.08 sec. 
 
                                                                      
