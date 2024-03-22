@@ -45,6 +45,7 @@ postgres=# select public.test_plpython();
 (1 row)
 
 Install the 3 functions inside DDL folder:
+
 1 - generate_embeddings_clip_bytea -- Generate embedding from Bytea (Used by the streamlit application to get the input image and return an embedding to search inside the database)
 
 2 - scan_specific_path_and_load -- Main function to generate embedding in batch and load data inside pictures table. 
