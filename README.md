@@ -155,7 +155,7 @@ Don’t do something like this:
 
 postgres=# explain analyze SELECT id, imagepath, 1 - (embeddings <-> public.generate_embeddings_clip('/users/francksidi/downloads/profile.jpg', 'person')) as similarity
 
-FROM (select * from pictures_2 limit 10) a 
+FROM (select * from pictures limit 10) a 
 
 ORDER BY similarity DESC Limit 3 ;
 
