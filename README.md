@@ -21,7 +21,8 @@ pip install -r requirements.txt
 
 Install pgvector 0.6 extension from https://github.com/pgvector/pgvector
 
-Python Environment: The Python environment accessible to PostgreSQL should have the necessary libraries installed, namely:
+Python Environment: The Python environment accessible to PostgreSQL should have the necessary libraries installed: 
+After test that this program is working: 
 
 %python test_clip.py
 
