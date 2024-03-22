@@ -26,6 +26,15 @@ Run pip install from EDB Python directory as: /Library/edb/languagepack/v4/Pytho
 
 Install pgvector 0.6 extension from https://github.com/pgvector/pgvector
 
+Validate that pl-python3u is working well 
+
+run select public.test_plpython() inside the database;
+
+postgres=# select public.test_plpython();
+     test_plpython     
+ PL/Python is working!
+(1 row)
+
 Python Environment: The Python environment accessible to PostgreSQL should have the necessary libraries installed: 
 After test that this program is working: 
 
@@ -39,14 +48,6 @@ drop table if exists public.pictures;
 
 CREATE TABLE IF NOT EXISTS public.pictures ( id serial, imagepath text, tag text, embeddings vector(512) ) TABLESPACE pg_default;
 
-Validate that pl-python3u is working well 
-
-run select public.test_plpython();
-
-postgres=# select public.test_plpython();
-     test_plpython     
- PL/Python is working!
-(1 row)
 
 Install the 3 functions inside DDL folder:
 
