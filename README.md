@@ -30,17 +30,9 @@ After test that this program is working:
 
 Open psql and create the table 
 
-drop table if exists public.pictures_2; 
+drop table if exists public.pictures;
 
-CREATE TABLE IF NOT EXISTS public.pictures_2
-(
-id integer NOT NULL DEFAULT nextval('pictures_id_seq'::regclass),
-imagepath text COLLATE pg_catalog."default",
-tag text COLLATE pg_catalog."default",
-embeddings vector(512)
-)
-
-TABLESPACE pg_default;
+CREATE TABLE IF NOT EXISTS public.pictures ( id serial, imagepath text, tag text, embeddings vector(512) ) TABLESPACE pg_default;
 
 Validate that pl-python3u is working well 
 
