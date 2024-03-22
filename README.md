@@ -13,7 +13,8 @@ File : img_align_celeba.zip, 1.44GB
 
 ##CAUTIOUS: Please validate that there is no virus on the file. I did not check also all images in term of content. 
 
-Use the script distribute_images.sh to create a directory with up to 250 images. It should take few munutes and  create 811 directories. 
+Use the script distribute_images.sh to create a directory with up to 250 images. It should take few minutes and  create 811 directories. 
+This file is located inside Dataset folder
 
 ## Install all dependencies for transformers and validate that CLIP model is available
 
