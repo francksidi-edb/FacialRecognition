@@ -132,6 +132,7 @@ The search is now moving from 0.8 sec to 0.08 sec.
 ## Similarity Search using Streamlit application enabling WebCAM
 
 Change the connection info inside streamlit_face_reco.py
+Run from the command line. Copy the logo.png image in the directory in which the python program is running.
 
 %streamlit run streamlit_face_reco.py
 
