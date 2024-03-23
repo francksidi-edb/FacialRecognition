@@ -15,3 +15,15 @@ clang
 torchvision 
 torchaudio
 requests
+plotly_express 
+clean-text 
+ipython-sql 
+pandas 
+scikit-learn 
+seaborn 
+matplotlib 
+sqlalchemy p
+lotly-express 
+sql_magic 
+wordcloud 
+langdetect
