@@ -12,3 +12,6 @@ psycopg2-binary
 SQLAlchemy
 cmake
 clang
+torchvision 
+torchaudio
+requests
