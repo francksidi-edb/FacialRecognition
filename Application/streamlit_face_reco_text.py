@@ -6,48 +6,43 @@ import numpy as np
 import io
 import time
 
-# Custom Header Section
-logo_path = "logo.svg"
-primary_color = "#FF4B33"
-background_color = "#FFFFFF"
+# Streamlit page configuration and custom styling
+st.set_page_config(page_title="Face Similarity Search", page_icon="🔍", layout="wide")
+primary_color, background_color = "#FF4B33", "#FFFFFF"
 
-header_css = f"""
-<style>
-.header {{
-    background-color: {background_color};
-    padding: 10px;
-    color: white;
-}}
-a {{
-    color: {primary_color};
-    padding: 0 16px;
-    text-decoration: none;
-    font-size: 16px;
-}}
-</style>
-"""
+def display_custom_header(logo_path, primary_color, background_color):
+    header_css = f"""
+    <style>
+    .header {{
+        background-color: {background_color};
+        padding: 10px;
+        color: white;
+    }}
+    a {{
+        color: {primary_color};
+        padding: 0 16px;
+        text-decoration: none;
+        font-size: 16px;
+    }}
+    </style>
+    """
+    st.markdown(header_css, unsafe_allow_html=True)
+    col1, col2 = st.columns([1, 4])
+    with col1:
+        st.image(logo_path, width=150)
+    with col2:
+        st.markdown(f"""
+        <div class="header">
+            <a href="#" target="_blank">Products</a>
+            <a href="#" target="_blank">Solutions</a>
+            <a href="#" target="_blank">Resources</a>
+            <a href="#" target="_blank">Company</a>
+        </div>
+        """, unsafe_allow_html=True)
 
-st.markdown(header_css, unsafe_allow_html=True)
-
-col1, col2 = st.columns([1, 4])
-
-with col1:
-    st.image(logo_path, width=150)
-
-with col2:
-    st.markdown(f"""
-    <div class="header">
-        <a href="#" target="_blank">Products</a>
-        <a href="#" target="_blank">Solutions</a>
-        <a href="#" target="_blank">Resources</a>
-        <a href="#" target="_blank">Company</a>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Streamlit UI for Image Similarity Search
+display_custom_header("logo.svg", primary_color, background_color)
 st.title('Face Similarity Search')
 st.markdown("## Powered by EDB Postgresql and Pgvector")
-
 
 def create_db_connection():
     return psycopg2.connect(
