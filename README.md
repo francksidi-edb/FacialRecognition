@@ -30,26 +30,28 @@ Install pgvector 0.6 extension from https://github.com/pgvector/pgvector
 
 Validate that pl-python3u is working well 
 
-run select public.test_plpython() inside the database;
+run:
+```
+select public.test_plpython() inside the database;
 
 postgres=# select public.test_plpython();
      test_plpython     
  PL/Python is working!
 (1 row)
-
+```
 Python Environment: The Python environment accessible to PostgreSQL should have the necessary libraries installed: 
 After test that this program is working: 
-
+```
 %python test_clip.py
-
+```
 ## Create Table, install Pl_python3u functions
 
 Open psql and create the table 
-
+```
 drop table if exists public.pictures;
 
 CREATE TABLE IF NOT EXISTS public.pictures ( id serial, imagepath text, tag text, embeddings vector(512) ) TABLESPACE pg_default;
-
+```
 
 Install the 3 functions inside DDL folder:
 
@@ -59,15 +61,12 @@ Install the 3 functions inside DDL folder:
 
 3 - process_images_and_store_embeddings_batch -- Function to load folder of images, take an input pattern and call scan_specific_path_and_load for each folder in which we have images
 
-
-
-
 ## Load Data
 
 You can load images from a directory directly calling the pl-python function: process_images_and_store_embeddings_batch(source_dir text,tag text,batch integer)
 
 if you have images for instance on: /Users/francksidi/Downloads/celebrity/image_group_811
-
+```
 postgres#= select process_images_and_store_embeddings_batch(' /Users/francksidi/Downloads/celebrity/image_group_811', 'person', 32);
 
 NOTICE:  Total processing time: 4.72 seconds
@@ -77,12 +76,13 @@ NOTICE:  Total number of images processed: 99
 process_images_and_store_embeddings_batch 
 99
 (1 row)
-
+```
 
 ## Load All Data
 
 You can load all data using the pl-python function from psql. we load in multiple phases as we did not create autonomous transactions.
 
+```
 postgres#= SET work_mem = '512MB';
 
 select public.scan_specific_path_and_load('/Users/francksidi/Downloads/celebrity/image_group_1*','person',32);
@@ -122,27 +122,27 @@ ID: 435829, ImagePath: /Users/francksidi/Downloads/celebrity/image_group_589/147
 ID: 396142, ImagePath: /Users/francksidi/Downloads/celebrity/image_group_405/101064.jpg, Similarity: 0.35226602687072894
 
 ID: 412995, ImagePath: /Users/francksidi/Downloads/celebrity/image_group_538/134483.jpg, Similarity: 0.34490723691677183
-
+```
 
 Now Create index on the table to speed up the search: 
-
+```
 The search is now moving from 0.8 sec to 0.08 sec. 
-
+```
 
 ## Similarity Search using Streamlit application enabling WebCAM
 
 Change the connection info inside streamlit_face_reco.py
 Run from the command line. Copy the logo.png image in the directory in which the python program is running.
-
+```
 %streamlit run streamlit_face_reco.py
-
+```
 ## Similarity Search using Streamlit application enabling WebCAM and Text Search on Images. 
 
 Change the connection info inside. Run from the command line. Copy the logo.png image in the directory in which the python program is running.
 For instance look for images from a text description: old man, old lady, blond lady ,...
-
+```
 %streamlit run streamlit_face_reco_text.py
-
+```
 
 ## Lesson Learned 
 
@@ -151,7 +151,8 @@ For instance look for images from a text description: old man, old lady, blond l
 To optimize performance, it's crucial to cache the model on the SD card, preventing the need to reload it with each execution—a process that typically takes between 2 to 5 seconds. Ideally, the model should load once at the beginning of a session. An enhancement would be to preload the model for all sessions right at the server startup, ensuring immediate availability and further efficiency gains.
 
 ### Define the model and processor outside the loop to avoid reloading them for each image
-	model_name = "openai/clip-vit-base-patch32"
+```
+        model_name = "openai/clip-vit-base-patch32"
 	if 'model' not in SD:
 		SD['model'] =  CLIPModel.from_pretrained(model_name)
 		SD['processor'] = CLIPProcessor.from_pretrained(model_name)
@@ -160,7 +161,7 @@ To optimize performance, it's crucial to cache the model on the SD card, prevent
 		plpy.notice("Model & Processor Reused")
 	model = SD['model']
 	processor = SD['processor']
-	
+```	
 ### Batching Images Processing
 
 Using a batch approach for images processing allowed me to triple the throughput moving from 12.5 Images/sec to 40 images per sec using a batch of 24. 
@@ -174,7 +175,7 @@ From now, we are using 1 single transaction to load the data and process embeddi
 It’s important not to pass any function to a query to process the embedding as the function will be called for each row of the table. I limit below just for 10 rows. We can see that we are calling the function for each row. 
 
 Don’t do something like this: 
-
+```
 postgres=# explain analyze SELECT id, imagepath, 1 - (embeddings <-> public.generate_embeddings_clip('/users/francksidi/downloads/profile.jpg', 'person')) as similarity
 
 FROM (select * from pictures limit 10) a 
@@ -200,7 +201,7 @@ NOTICE:  Model & Processor Reused
 NOTICE:  Model & Processor Reused
 
 NOTICE:  Model & Processor Reused
-
+```
 ### Efficiency of Index
 
 Adding HSNW index improved the search query by 10X as we moved from 0.8sec to 0.08 sec. 
