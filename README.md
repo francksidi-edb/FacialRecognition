@@ -35,7 +35,8 @@ Validate that pl-python3u is working well
 
 run:
 ```
-select public.test_plpython() inside the database;
+# Inside the database;
+select public.test_plpython();
 
 postgres=# select public.test_plpython();
      test_plpython     
