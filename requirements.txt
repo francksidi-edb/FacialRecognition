@@ -1,4 +1,5 @@
 setuptools
+opencv-python
 transformers
 Pillow
 torch
