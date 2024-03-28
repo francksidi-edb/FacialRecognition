@@ -17,7 +17,7 @@ def run_queries(filepath):
     try:
         start_time = time.time()  # Start timing for fetching vector
         # First Query: Get the vector
-        cur.execute("SELECT public.generate_embeddings_clip_GD(%s, 'person');", (filepath,))
+        cur.execute("SELECT public.generate_embeddings_clip_from_url(%s, 'person');", (filepath,))
         vector_result = cur.fetchone()[0]  # Assuming the function returns the vector directly
         vector_time = time.time() - start_time  # End timing for fetching vector
         print(f"Fetching vector took {vector_time:.4f} seconds.")
