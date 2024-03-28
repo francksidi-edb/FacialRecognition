@@ -33,13 +33,14 @@ Install pgvector 0.6 extension from https://github.com/pgvector/pgvector
 
 Validate that pl-python3u is working well 
 
-run:
+run inside the database;
 ```
-# Inside the database;
 select public.test_plpython();
-
-postgres=# select public.test_plpython();
-     test_plpython     
+```
+Result:
+```
+     test_plpython
+-----------------------
  PL/Python is working!
 (1 row)
 ```
