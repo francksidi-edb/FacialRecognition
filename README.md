@@ -26,6 +26,9 @@ EDB Language pack installed.
 
 Run pip install from EDB Python directory as: /Library/edb/languagepack/v4/Python-3.11/bin/pip install -r requirements.txt
 
+Use utilities.sql python function to validate where the packages are installed and you may have to adjust the path: 
+
+
 Install pgvector 0.6 extension from https://github.com/pgvector/pgvector
 
 Validate that pl-python3u is working well 
