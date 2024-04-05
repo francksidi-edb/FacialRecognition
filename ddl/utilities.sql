@@ -26,3 +26,9 @@ if new_path not in sys.path:
     sys.path.append(new_path)
 return str(sys.path)
 $$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE FUNCTION plpython_package_location()
+RETURNS text AS $$
+import site
+return site.getsitepackages()
+$$ LANGUAGE plpythonu;
